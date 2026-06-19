@@ -1,0 +1,802 @@
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NG Creative – Graphic Studio</title>
+    
+    <!-- 
+    ========================================================================
+    FONT CONFIGURATION (Google Fonts)
+    ======================================================================== 
+    -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Plus+Jakarta+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS for Styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            blue: '#0B132B',   /* Deep Dark Blue */
+                            lightBlue: '#1C2541', /* Secondary Dark Blue */
+                            orange: '#FF6B35', /* Accent Orange */
+                            grey: '#3A506B',   /* Medium Grey */
+                            light: '#F8F9FA'   /* Off-white */
+                        }
+                    },
+                    fontFamily: {
+                        heading: ['Outfit', 'sans-serif'],
+                        body: ['Plus Jakarta Sans', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- 
+    ========================================================================
+    CUSTOM CSS (Animations & Modals)
+    DO NOT EDIT UNLESS YOU KNOW CSS
+    ======================================================================== 
+    -->
+    <style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #0B132B; color: #F8F9FA;
+            /* ================================================================
+               ABSTRACT BACKGROUND — to swap the pattern:
+                 Option A: regenerate SVG and replace the base64 value.
+                 Option B: background-image: url('your-texture.jpg');
+               ================================================================ */
+            background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxOTIwIiBoZWlnaHQ9IjEwODAiIHZpZXdCb3g9IjAgMCAxOTIwIDEwODAiPgogIDxkZWZzPgogICAgPHBhdHRlcm4gaWQ9ImdyaWQiIHdpZHRoPSI4MCIgaGVpZ2h0PSI4MCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+CiAgICAgIDxwYXRoIGQ9Ik0gODAgMCBMIDAgMCAwIDgwIiBmaWxsPSJub25lIiBzdHJva2U9IiMxQzI1NDEiIHN0cm9rZS13aWR0aD0iMC45IiBvcGFjaXR5PSIwLjgiLz4KICAgIDwvcGF0dGVybj4KICAgIDxwYXR0ZXJuIGlkPSJkb3RzIiB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHBhdHRlcm5Vbml0cz0idXNlclNwYWNlT25Vc2UiPgogICAgICA8Y2lyY2xlIGN4PSIyMCIgY3k9IjIwIiByPSIxLjQiIGZpbGw9IiMzQTUwNkIiIG9wYWNpdHk9IjAuNjUiLz4KICAgIDwvcGF0dGVybj4KICA8L2RlZnM+CgogIDwhLS0gQmFzZSBjb2xvdXIgLS0+CiAgPHJlY3Qgd2lkdGg9IjE5MjAiIGhlaWdodD0iMTA4MCIgZmlsbD0iIzBCMTMyQiIvPgoKICA8IS0tIEdyaWQgbGF5ZXIgLS0+CiAgPHJlY3Qgd2lkdGg9IjE5MjAiIGhlaWdodD0iMTA4MCIgZmlsbD0idXJsKCNncmlkKSIvPgoKICA8IS0tIERvdCBsYXllciAtLT4KICA8cmVjdCB3aWR0aD0iMTkyMCIgaGVpZ2h0PSIxMDgwIiBmaWxsPSJ1cmwoI2RvdHMpIi8+CgogIDwhLS0gQ29uY2VudHJpYyByaW5ncyDigJQgY2VudHJlIC0tPgogIDxjaXJjbGUgY3g9Ijk2MCIgY3k9IjU0MCIgcj0iMjgwIiBmaWxsPSJub25lIiBzdHJva2U9IiMzQTUwNkIiIHN0cm9rZS13aWR0aD0iMS44IiBvcGFjaXR5PSIwLjU1Ii8+CiAgPGNpcmNsZSBjeD0iOTYwIiBjeT0iNTQwIiByPSI0NjAiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzNBNTA2QiIgc3Ryb2tlLXdpZHRoPSIxLjQiIG9wYWNpdHk9IjAuNDIiLz4KICA8Y2lyY2xlIGN4PSI5NjAiIGN5PSI1NDAiIHI9IjY2MCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjMUMyNTQxIiBzdHJva2Utd2lkdGg9IjEuMiIgb3BhY2l0eT0iMC41MiIvPgogIDxjaXJjbGUgY3g9Ijk2MCIgY3k9IjU0MCIgcj0iODgwIiBmaWxsPSJub25lIiBzdHJva2U9IiMxQzI1NDEiIHN0cm9rZS13aWR0aD0iMC45IiBvcGFjaXR5PSIwLjM1Ii8+CgogIDwhLS0gVG9wLWxlZnQgY29ybmVyIHJpbmdzIC0tPgogIDxjaXJjbGUgY3g9IjAiIGN5PSIwIiByPSIzMjAiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzNBNTA2QiIgc3Ryb2tlLXdpZHRoPSIxLjgiIG9wYWNpdHk9IjAuNSIvPgogIDxjaXJjbGUgY3g9IjAiIGN5PSIwIiByPSI1NjAiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzNBNTA2QiIgc3Ryb2tlLXdpZHRoPSIxLjIiIG9wYWNpdHk9IjAuMzIiLz4KICA8Y2lyY2xlIGN4PSIwIiBjeT0iMCIgcj0iODIwIiBmaWxsPSJub25lIiBzdHJva2U9IiMxQzI1NDEiIHN0cm9rZS13aWR0aD0iMC44IiBvcGFjaXR5PSIwLjIiLz4KCiAgPCEtLSBCb3R0b20tcmlnaHQgY29ybmVyIHJpbmdzIC0tPgogIDxjaXJjbGUgY3g9IjE5MjAiIGN5PSIxMDgwIiByPSIzNDAiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzNBNTA2QiIgc3Ryb2tlLXdpZHRoPSIxLjgiIG9wYWNpdHk9IjAuNSIvPgogIDxjaXJjbGUgY3g9IjE5MjAiIGN5PSIxMDgwIiByPSI2MDAiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzNBNTA2QiIgc3Ryb2tlLXdpZHRoPSIxLjIiIG9wYWNpdHk9IjAuMzIiLz4KICA8Y2lyY2xlIGN4PSIxOTIwIiBjeT0iMTA4MCIgcj0iODgwIiBmaWxsPSJub25lIiBzdHJva2U9IiMxQzI1NDEiIHN0cm9rZS13aWR0aD0iMC44IiBvcGFjaXR5PSIwLjIiLz4KCiAgPCEtLSBUb3AtcmlnaHQgY29ybmVyIHJpbmcgLS0+CiAgPGNpcmNsZSBjeD0iMTkyMCIgY3k9IjAiIHI9IjQyMCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjMUMyNTQxIiBzdHJva2Utd2lkdGg9IjEuNCIgb3BhY2l0eT0iMC4zOCIvPgoKICA8IS0tIEJvdHRvbS1sZWZ0IGNvcm5lciByaW5nIC0tPgogIDxjaXJjbGUgY3g9IjAiIGN5PSIxMDgwIiByPSIzODAiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzFDMjU0MSIgc3Ryb2tlLXdpZHRoPSIxLjQiIG9wYWNpdHk9IjAuMzYiLz4KCiAgPCEtLSBQcmltYXJ5IGRpYWdvbmFsIOKAlCB0b3AtbGVmdCB0byBib3R0b20tcmlnaHQgLS0+CiAgPGxpbmUgeDE9IjAiIHkxPSIwIiB4Mj0iMTkyMCIgeTI9IjEwODAiIHN0cm9rZT0iIzNBNTA2QiIgc3Ryb2tlLXdpZHRoPSIxLjYiIG9wYWNpdHk9IjAuNTUiLz4KCiAgPCEtLSBQcmltYXJ5IGRpYWdvbmFsIOKAlCB0b3AtcmlnaHQgdG8gYm90dG9tLWxlZnQgLS0+CiAgPGxpbmUgeDE9IjE5MjAiIHkxPSIwIiB4Mj0iMCIgeTI9IjEwODAiIHN0cm9rZT0iIzNBNTA2QiIgc3Ryb2tlLXdpZHRoPSIxLjYiIG9wYWNpdHk9IjAuNTUiLz4KCiAgPCEtLSBIb3Jpem9udGFsIG1pZC1heGlzIC0tPgogIDxsaW5lIHgxPSIwIiB5MT0iNTQwIiB4Mj0iMTkyMCIgeTI9IjU0MCIgc3Ryb2tlPSIjMUMyNTQxIiBzdHJva2Utd2lkdGg9IjEiIG9wYWNpdHk9IjAuNDUiLz4KCiAgPCEtLSBWZXJ0aWNhbCBtaWQtYXhpcyAtLT4KICA8bGluZSB4MT0iOTYwIiB5MT0iMCIgeDI9Ijk2MCIgeTI9IjEwODAiIHN0cm9rZT0iIzFDMjU0MSIgc3Ryb2tlLXdpZHRoPSIxIiBvcGFjaXR5PSIwLjQ1Ii8+CgogIDwhLS0gVXBwZXItbGVmdCBkaWFnb25hbCBhY2NlbnQgLS0+CiAgPGxpbmUgeDE9IjAiIHkxPSI3NjAiIHgyPSI3NjAiIHkyPSIwIiBzdHJva2U9IiMzQTUwNkIiIHN0cm9rZS13aWR0aD0iMS40IiBvcGFjaXR5PSIwLjYiLz4KCiAgPCEtLSBVcHBlci1yaWdodCBkaWFnb25hbCBhY2NlbnQgLS0+CiAgPGxpbmUgeDE9IjExNjAiIHkxPSIwIiB4Mj0iMTkyMCIgeTI9Ijc2MCIgc3Ryb2tlPSIjM0E1MDZCIiBzdHJva2Utd2lkdGg9IjEuNCIgb3BhY2l0eT0iMC42Ii8+CgogIDwhLS0gTG93ZXItbGVmdCBkaWFnb25hbCBhY2NlbnQgLS0+CiAgPGxpbmUgeDE9IjAiIHkxPSIzMjAiIHgyPSIzMjAiIHkyPSIxMDgwIiBzdHJva2U9IiMxQzI1NDEiIHN0cm9rZS13aWR0aD0iMC45IiBvcGFjaXR5PSIwLjQiLz4KCiAgPCEtLSBMb3dlci1yaWdodCBkaWFnb25hbCBhY2NlbnQgLS0+CiAgPGxpbmUgeDE9IjE2MDAiIHkxPSIwIiB4Mj0iMTkyMCIgeTI9IjUyMCIgc3Ryb2tlPSIjMUMyNTQxIiBzdHJva2Utd2lkdGg9IjAuOSIgb3BhY2l0eT0iMC40Ii8+CgogIDwhLS0gRGlhbW9uZCAvIHJvdGF0ZWQgc3F1YXJlIGZyYW1lIOKAlCBjZW50cmUgLS0+CiAgPHBvbHlnb24gcG9pbnRzPSI5NjAsMTAwIDE0MDAsNTQwIDk2MCw5ODAgNTIwLDU0MCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjM0E1MDZCIiBzdHJva2Utd2lkdGg9IjEuMiIgb3BhY2l0eT0iMC4zOCIvPgogIDxwb2x5Z29uIHBvaW50cz0iOTYwLDI2MCAxMjAwLDU0MCA5NjAsODIwIDcyMCw1NDAiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzNBNTA2QiIgc3Ryb2tlLXdpZHRoPSIwLjkiIG9wYWNpdHk9IjAuMjgiLz4KPC9zdmc+Cg==");
+            background-attachment: fixed;
+            background-size: cover;
+            background-position: center; }
+        h1, h2, h3, h4, h5, h6 { font-family: 'Outfit', sans-serif; }
+        
+        /* ================================================================
+           HERO GALLERY — Fade-transition slideshow
+           Each .hero-slide is stacked absolutely; JS toggles .active.
+           ================================================================ */
+        .hero-slide {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            opacity: 0;
+            transition: opacity 1.2s ease-in-out;
+        }
+        .hero-slide.active { opacity: 1; }
+        .hero-slide img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+        /* Dot navigation */
+        .hero-dot {
+            display: inline-block;
+            width: 9px; height: 9px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.35);
+            cursor: pointer;
+            border: none;
+            transition: background 0.3s ease, transform 0.3s ease;
+        }
+        .hero-dot.active {
+            background: #FF6B35;
+            transform: scale(1.35);
+        }
+        .hero-dot:hover { background: rgba(255,255,255,0.7); }
+
+        /* White accent line variant — used on orange-background cards */
+        .card-top-accent-light::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 2rem; right: 2rem;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.55), transparent);
+            border-radius: 0 0 2px 2px;
+        }
+
+        /* Hero headline text shadow for readability over image */
+        .hero-headline-shadow {
+            text-shadow: 0 2px 10px rgba(0,0,0,0.38);
+        }
+        .hero-sub-shadow {
+            text-shadow: 0 1px 8px rgba(0,0,0,0.9);
+        }
+        /* Gradient headline — bold & bright, with outer drop-shadow matching hero headline */
+        .gradient-headline {
+            text-shadow: none; /* text-shadow doesn't render on text-transparent; drop-shadow is used instead */
+            filter: brightness(1.18) saturate(1.1) drop-shadow(0 2px 12px rgba(0,0,0,0.65));
+        }
+        /* Fancy card top accent line */
+        .card-top-accent::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 2rem; right: 2rem;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, rgba(255,107,53,0.6), transparent);
+            border-radius: 0 0 2px 2px;
+        }
+        /* Ghost large number sitting in card corner */
+        .card-number {
+            position: absolute;
+            top: 0.6rem; right: 1.1rem;
+            font-size: 5.5rem;
+            font-weight: 800;
+            color: rgba(255,255,255,0.04);
+            font-family: 'Outfit', sans-serif;
+            line-height: 1;
+            user-select: none;
+            pointer-events: none;
+            letter-spacing: -0.04em;
+        }
+
+        /* Modal Styles */
+        .modal { transition: opacity 0.3s ease; }
+        .modal.hidden { opacity: 0; pointer-events: none; }
+        .modal.visible { opacity: 1; pointer-events: auto; }
+        
+        /* Hover Effects */
+        .hover-orange:hover { color: #FF6B35; transition: color 0.3s; }
+        .border-hover-orange:hover { border-color: #FF6B35; transition: border-color 0.3s; }
+    </style>
+</head>
+<body class="antialiased selection:bg-brand-orange selection:text-white">
+
+    <!-- 
+    ========================================================================
+    1. NAVIGATION BAR
+    ======================================================================== 
+    -->
+    <nav class="fixed w-full z-50 top-0 bg-brand-blue/90 backdrop-blur-md border-b border-white/10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                
+                <!-- LOGO: Edit your studio name here -->
+                <div class="flex-shrink-0 flex items-center">
+                    <a href="#" class="text-2xl font-heading font-extrabold text-white tracking-wide">
+                        NG<span class="text-brand-orange">Creative</span>
+                        <span class="block text-xs text-gray-400 font-body font-normal tracking-widest uppercase mt-0.5">Graphic Studio</span>
+                    </a>
+                </div>
+
+                <!-- DESKTOP MENU -->
+                <div class="hidden md:flex space-x-8 items-center font-medium text-sm text-gray-300 tracking-wide">
+                    <a href="#about" class="hover-orange">About</a>
+                    <a href="#services" class="hover-orange">Pricing</a>
+                    <a href="#portfolio" class="hover-orange">Portfolio</a>
+                    <a href="#why-hire-me" class="hover-orange">Why Hire Me?</a>
+                    <!-- CALL TO ACTION BUTTON -->
+                    <a href="#contact" class="bg-brand-orange hover:bg-orange-600 text-white px-6 py-2.5 rounded-full font-bold transition-all shadow-lg shadow-brand-orange/30">Start a Project</a>
+                </div>
+
+                <!-- MOBILE MENU BUTTON (Javascript handles the click) -->
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-btn" class="text-gray-300 hover:text-white focus:outline-none">
+                        <svg class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- MOBILE MENU (Hidden by default) -->
+        <div id="mobile-menu" class="hidden md:hidden bg-brand-lightBlue border-b border-white/10">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3 text-center">
+                <a href="#about" class="block px-3 py-2 text-gray-300 hover:text-brand-orange">About</a>
+                <a href="#services" class="block px-3 py-2 text-gray-300 hover:text-brand-orange">Services</a>
+                <a href="#portfolio" class="block px-3 py-2 text-gray-300 hover:text-brand-orange">Portfolio</a>
+                <a href="#contact" class="block px-3 py-2 text-brand-orange font-bold">Start a Project</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 
+    ========================================================================
+    2. HERO SECTION — Full-screen with before/after crossfade background
+    ======================================================================== 
+    -->
+    <section class="relative min-h-screen flex flex-col items-center justify-center overflow-hidden">
+
+        <!-- ================================================================
+             HERO GALLERY — 5 rotating slides with fade transition
+             ================================================================
+             PLACEHOLDER IMAGES: The src values below use picsum.photos, a free
+             service that delivers random high-quality photos. They are intended
+             as temporary stand-ins only.
+
+             TO REPLACE WITH YOUR OWN PHOTOS:
+               1. Place your images in the "Images/" folder next to this file.
+               2. Swap each src URL for a relative path, e.g.:
+                    src="Images/hero-photo-1.jpg"
+               3. Recommended size: 1920 × 1080 px (landscape).
+
+             TO ADD MORE IMAGES:
+               Copy one <div class="hero-slide"> block and paste it after the
+               last one. The JavaScript below detects the count automatically
+               and adds the matching dot — no JS edits required.
+             ================================================================ -->
+        <div id="hero-gallery" class="absolute inset-0">
+            <div class="hero-slide active">
+                <img src="https://picsum.photos/1920/1080?random=10" alt="Hero slide 1">
+            </div>
+            <div class="hero-slide">
+                <img src="https://picsum.photos/1920/1080?random=20" alt="Hero slide 2">
+            </div>
+            <div class="hero-slide">
+                <img src="https://picsum.photos/1920/1080?random=30" alt="Hero slide 3">
+            </div>
+            <div class="hero-slide">
+                <img src="https://picsum.photos/1920/1080?random=40" alt="Hero slide 4">
+            </div>
+            <div class="hero-slide">
+                <img src="https://picsum.photos/1920/1080?random=50" alt="Hero slide 5">
+            </div>
+        </div>
+
+        <!-- Dark blue tint overlay (50%) for text readability over hero images -->
+        <div class="absolute inset-0 z-10" style="background-color: rgba(11, 19, 43, 0.40);"></div>
+
+        <!-- Hero Content -->
+        <div class="relative z-20 text-center px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto">
+
+            <!-- EDIT: Your Headline Here -->
+            <h1 class="hero-headline-shadow text-5xl md:text-7xl font-heading font-extrabold leading-tight mb-6">
+                Elevating your Brand Through <br class="hidden md:block">
+                <span class="gradient-headline text-transparent bg-clip-text bg-gradient-to-r from-brand-orange to-yellow-400">Bold &amp; Long lasting Design</span>
+            </h1>
+
+            <!-- EDIT: Your Sub-headline Here -->
+            <p class="hero-sub-shadow text-lg md:text-xl text-gray-200 max-w-2xl mx-auto mb-10">
+                I help your business stand out, build trust, and convert audiences into loyal customers through world-class graphic design and branding.
+            </p>
+
+            <!-- CTA Buttons -->
+            <div class="flex justify-center flex-wrap gap-4 mb-10">
+                <a href="#contact" class="bg-brand-orange hover:bg-orange-600 text-white px-8 py-4 rounded-full font-bold transition-all shadow-lg shadow-brand-orange/30 text-lg">Hire Me Today</a>
+                <a href="#portfolio" class="bg-white/10 backdrop-blur-sm border border-white/40 hover:border-white text-white px-8 py-4 rounded-full font-bold transition-all text-lg">View My Work</a>
+            </div>
+        </div>
+
+
+        <!-- Hero gallery dot indicators (populated by JS) -->
+        <div id="hero-dots" class="absolute bottom-16 left-0 right-0 flex justify-center gap-3 z-20"></div>
+
+        <!-- Scroll hint -->
+        <div class="absolute bottom-6 right-0 left-0 flex justify-center z-20">
+            <a href="#about" class="text-white/50 hover:text-brand-orange transition-colors flex flex-col items-center gap-1 text-xs tracking-widest uppercase">
+                <span>Scroll</span>
+                <svg class="w-4 h-4 animate-bounce" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+            </a>
+        </div>
+    </section>
+
+    <!-- 
+    ========================================================================
+    3. ABOUT SECTION
+    ======================================================================== 
+    -->
+    <section id="about" class="min-h-screen flex items-center py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-16 items-center w-full">
+            
+            <!-- EDIT: Your Profile Picture Here -->
+            <div class="relative">
+                <div class="absolute inset-0 bg-brand-orange rounded-3xl transform translate-x-4 translate-y-4"></div>
+                <img src="Images/Nicolas.jpeg" alt="Your Name" class="relative rounded-3xl shadow-2xl w-full h-[500px] object-cover border-4 border-brand-blue">
+            </div>
+
+            <div>
+                <h2 class="text-brand-orange font-bold tracking-wider uppercase mb-2">About Me</h2>
+                <!-- EDIT: Your Name -->
+                <h3 class="text-4xl md:text-5xl font-heading font-bold mb-6">Hi, I'm <span class="text-white">Nicolas Grignon</span>.</h3>
+                
+                <!-- EDIT: Your Bio -->
+                <div class="text-gray-400 space-y-4 text-lg leading-relaxed">
+                    <p>With over 25 years of experience in the advertising and design industry, in france and in Canada. I Worked for prestigious clients over the years - Blackberry, Edwrd Jones, WWF, Nike, Philips, Rogers, etc...  When I design, I don't just make things look pretty; I design to make your vision last.</p>
+                    <p>Whether you are a startup needing a complete brand identity or an established business looking to refresh your marketing materials, my goal is to deliver agency-quality graphics without the agency overhead.</p>
+                </div>
+
+                <div class="mt-8">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c2/Signature_placeholder.svg/1200px-Signature_placeholder.svg.png" alt="Signature" class="h-12 filter invert opacity-70">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 
+    ========================================================================
+    4. SERVICES & PRICING SECTION
+    ======================================================================== 
+    -->
+    <section id="services" class="min-h-screen flex items-center py-24 bg-brand-lightBlue/30 border-y border-white/5">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+            <div class="text-center mb-16">
+                <h2 class="text-brand-orange font-bold tracking-wider uppercase mb-2">What I Do</h2>
+                <h3 class="text-4xl md:text-5xl font-heading font-bold text-white">Services & Pricing</h3>
+                <p class="text-gray-400 mt-4 max-w-2xl mx-auto">Transparent pricing designed to fit your project scope. No hidden fees, just high-converting designs.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                
+                <!-- SERVICE 1 -->
+                <div class="card-top-accent-light relative bg-gradient-to-br from-brand-orange to-orange-700 rounded-2xl p-8 border border-white/20 hover:border-white/50 transition-all duration-300 hover:-translate-y-2 shadow-xl shadow-brand-orange/30 flex flex-col h-full overflow-hidden">
+                    <span class="card-number" style="color:rgba(0,0,0,0.07);">01</span>
+                    <!-- EDIT: Service 1 Title & Info -->
+                    <h4 class="text-2xl font-bold font-heading mb-2 mt-2 text-white">Brand Identity</h4>
+                    <p class="text-white/80 mb-6 flex-grow">Complete visual branding including logo design, color palettes, typography, and brand guidelines to establish trust.</p>
+                    <div class="border-t border-white/25 pt-6 mt-auto">
+                        <p class="text-xs text-white/60 uppercase tracking-widest mb-1">Starting At</p>
+                        <p class="text-4xl font-extrabold text-white mt-1">$950</p>
+                    </div>
+                </div>
+
+                <!-- SERVICE 2 -->
+                <!-- SERVICE 2 — MOST POPULAR -->
+                <div class="card-top-accent-light relative bg-gradient-to-br from-orange-400 to-brand-orange rounded-2xl p-8 border-2 border-white/60 shadow-2xl shadow-brand-orange/40 flex flex-col h-full overflow-hidden scale-[1.03]">
+                    <div class="absolute top-0 right-0 bg-white text-brand-orange text-xs font-bold px-4 py-1.5 rounded-bl-xl rounded-tr-2xl uppercase tracking-widest">Most Popular</div>
+                    <span class="card-number" style="color:rgba(0,0,0,0.08);">02</span>
+                    <!-- EDIT: Service 2 Title & Info -->
+                    <h4 class="text-2xl font-bold font-heading mb-2 mt-2 text-white">Web & UI Design</h4>
+                    <p class="text-white/85 mb-6 flex-grow">Full functional website mockups tailored for optimal user experience.</p>
+                    <div class="border-t border-white/30 pt-6 mt-auto">
+                        <p class="text-xs text-white/65 uppercase tracking-widest mb-1">Starting At</p>
+                        <p class="text-4xl font-extrabold text-white mt-1">$1,500</p>
+                    </div>
+                </div>
+
+                <!-- SERVICE 3 -->
+                <div class="card-top-accent-light relative bg-gradient-to-br from-brand-orange to-orange-700 rounded-2xl p-8 border border-white/20 hover:border-white/50 transition-all duration-300 hover:-translate-y-2 shadow-xl shadow-brand-orange/30 flex flex-col h-full overflow-hidden">
+                    <span class="card-number" style="color:rgba(0,0,0,0.07);">03</span>
+                    <!-- EDIT: Service 3 Title & Info -->
+                    <h4 class="text-2xl font-bold font-heading mb-2 mt-2 text-white">Advertising</h4>
+                    <p class="text-white/80 mb-6 flex-grow">Bold and creative digital and print advertising to boost your sales.</p>
+                    <div class="border-t border-white/25 pt-6 mt-auto">
+                        <p class="text-xs text-white/60 uppercase tracking-widest mb-1">Starting at</p>
+                        <p class="text-4xl font-extrabold text-white mt-1">$500</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- 
+    ========================================================================
+    5. PORTFOLIO SECTION
+    ======================================================================== 
+    -->
+    <section id="portfolio" class="min-h-screen flex flex-col justify-center py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between items-end mb-12">
+            <div>
+                <h2 class="text-brand-orange font-bold tracking-wider uppercase mb-2">My Work</h2>
+                <h3 class="text-4xl md:text-5xl font-heading font-bold text-white">Featured Projects</h3>
+            </div>
+            <div class="hidden md:block">
+                <a href="#contact" class="text-gray-300 hover:text-brand-orange transition-colors flex items-center gap-2">
+                    Let's create something <span class="text-xl">&rarr;</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- 
+        HOW TO UPDATE YOUR PORTFOLIO:
+        1. Put your images in a folder named "images-portfolio" on your computer.
+        2. Change the 'src' to "images-portfolio/your-image-thumbnail.jpg".
+        3. Change the 'data-full' to "images-portfolio/your-image-HD.jpg".
+        4. Update the 'data-title' and 'data-desc'.
+        -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            
+            <!-- PROJECT ITEM 1 -->
+            <div class="group relative overflow-hidden rounded-xl cursor-pointer shadow-lg" 
+                 onclick="openModal(this)"
+                 data-full="Gallery/Flier OCO.jpg"
+                 data-title="Oakville Chamber Orchestra"
+                 data-desc="Flier for a concert with the Winner of the Young Oakville Talents organized by the OCO.">
+                <!-- THUMBNAIL IMAGE -->
+                <img src="Gallery/Flier OCO.jpg" alt="Project 1" class="w-full h-80 object-cover transition-transform duration-700 group-hover:scale-110">
+                <div class="absolute inset-0 bg-gradient-to-t from-brand-blue via-transparent to-transparent opacity-80"></div>
+                <div class="absolute bottom-0 left-0 p-6 translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
+                    <p class="text-brand-orange text-sm font-bold uppercase mb-1">digital and print Fliers</p>
+                    <h4 class="text-xl font-heading font-bold text-white">Oakville Chamber Orchestra</h4>
+                </div>
+            </div>
+
+            <!-- PROJECT ITEM 2 -->
+            <div class="group relative overflow-hidden rounded-xl cursor-pointer shadow-lg" 
+                 onclick="openModal(this)"
+                 data-full="Gallery/Hippopost.jpg"
+                 data-title="Branding"
+                 data-desc="High-impact branding covering all print and digital materials.">
+                <img src="Gallery/Hippopost.jpg" alt="Project 2" class="w-full h-80 object-cover transition-transform duration-700 group-hover:scale-110">
+                <div class="absolute inset-0 bg-gradient-to-t from-brand-blue via-transparent to-transparent opacity-80"></div>
+                <div class="absolute bottom-0 left-0 p-6 translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
+                    <p class="text-brand-orange text-sm font-bold uppercase mb-1">Branding</p>
+                    <h4 class="text-xl font-heading font-bold text-white">Hippopost Brand</h4>
+                </div>
+            </div>
+
+            <!-- PROJECT ITEM 3 -->
+            <div class="group relative overflow-hidden rounded-xl cursor-pointer shadow-lg" 
+                 onclick="openModal(this)"
+                 data-full="Gallery/PFi.jpg"
+                 data-title="High quality Brochures"
+                 data-desc="Print Materials that will boost your brand and elevate how clients see you.">
+                <img src="Gallery/PFi.jpg" alt="Project 3" class="w-full h-80 object-cover transition-transform duration-700 group-hover:scale-110">
+                <div class="absolute inset-0 bg-gradient-to-t from-brand-blue via-transparent to-transparent opacity-80"></div>
+                <div class="absolute bottom-0 left-0 p-6 translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
+                    <p class="text-brand-orange text-sm font-bold uppercase mb-1">Print Brochures</p>
+                    <h4 class="text-xl font-heading font-bold text-white">PFI Printer</h4>
+                </div>
+            </div>
+
+            <!-- PROJECT ITEM 4 -->
+            <div class="group relative overflow-hidden rounded-xl cursor-pointer shadow-lg" 
+                 onclick="openModal(this)"
+                 data-full=""
+                 data-title="Advertisement"
+                 data-desc="great and current advertisement with world class design.">
+                <img src="Gallery/CrossAuto.jpg" alt="Project 4" class="w-full h-80 object-cover transition-transform duration-700 group-hover:scale-110">
+                <div class="absolute inset-0 bg-gradient-to-t from-brand-blue via-transparent to-transparent opacity-80"></div>
+                <div class="absolute bottom-0 left-0 p-6 translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
+                    <p class="text-brand-orange text-sm font-bold uppercase mb-1">Advertisement</p>
+                    <h4 class="text-xl font-heading font-bold text-white">CrossAuto Magazine Ad</h4>
+                </div>
+            </div>
+
+            <!-- PROJECT ITEM 5 -->
+            <div class="group relative overflow-hidden rounded-xl cursor-pointer shadow-lg" 
+                 onclick="openModal(this)"
+                 data-full="Gallery/Illustration WW1.jpg"
+                 data-title="Illustration"
+                 data-desc="Mastering custom Illustration for digital or print purpose.">
+                <img src="Gallery/Illustration WW1.jpg" alt="Project 5" class="w-full h-80 object-cover transition-transform duration-700 group-hover:scale-110">
+                <div class="absolute inset-0 bg-gradient-to-t from-brand-blue via-transparent to-transparent opacity-80"></div>
+                <div class="absolute bottom-0 left-0 p-6 translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
+                    <p class="text-brand-orange text-sm font-bold uppercase mb-1">Print Ready</p>
+                    <h4 class="text-xl font-heading font-bold text-white">Illustration for WWI book</h4>
+                </div>
+            </div>
+
+            <!-- PROJECT ITEM 6 -->
+            <div class="group relative overflow-hidden rounded-xl cursor-pointer shadow-lg" 
+                 onclick="openModal(this)"
+                 data-full="Gallery/Logo etude MArketingIntelligence.jpg"
+                 data-title="Long Lasting Logo"
+                 data-desc="Logo for Marketing Intelligence brand.">
+                <img src="Gallery/Logo etude MArketingIntelligence.jpg" alt="Project 6" class="w-full h-80 object-cover transition-transform duration-700 group-hover:scale-110">
+                <div class="absolute inset-0 bg-gradient-to-t from-brand-blue via-transparent to-transparent opacity-80"></div>
+                <div class="absolute bottom-0 left-0 p-6 translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
+                    <p class="text-brand-orange text-sm font-bold uppercase mb-1">Logo</p>
+                    <h4 class="text-xl font-heading font-bold text-white">Logo Presentation for marketing Intelligence</h4>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- PORTFOLIO LIGHTBOX MODAL (Hidden by default) -->
+    <div id="portfolio-modal" class="modal hidden fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6">
+        <div class="absolute inset-0 bg-brand-blue/95 backdrop-blur-md" onclick="closeModal()"></div>
+        <div class="relative bg-brand-lightBlue w-full max-w-5xl rounded-2xl overflow-hidden shadow-2xl flex flex-col md:flex-row max-h-[90vh]">
+            <!-- Close Button -->
+            <button onclick="closeModal()" class="absolute top-4 right-4 z-10 bg-black/50 hover:bg-brand-orange text-white w-10 h-10 rounded-full flex items-center justify-center transition-colors">
+                ✕
+            </button>
+            
+            <!-- Modal Image -->
+            <div class="w-full md:w-2/3 bg-black flex items-center justify-center overflow-hidden">
+                <img id="modal-img" src="" alt="Project HD" class="w-full h-full object-contain max-h-[60vh] md:max-h-[90vh]">
+            </div>
+            
+            <!-- Modal Text -->
+            <div class="w-full md:w-1/3 p-8 flex flex-col justify-center border-l border-white/5 overflow-y-auto">
+                <h4 id="modal-title" class="text-3xl font-heading font-bold text-white mb-4">Project Title</h4>
+                <div class="w-12 h-1 bg-brand-orange mb-6"></div>
+                <p id="modal-desc" class="text-gray-400 text-lg leading-relaxed">Project description goes here.</p>
+                <div class="mt-8">
+                    <button onclick="closeModal()" class="text-brand-orange font-bold uppercase text-sm tracking-wider hover:text-white transition-colors">← Back to Portfolio</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 
+    ========================================================================
+    6. WHY HIRE ME SECTION
+    ======================================================================== 
+    -->
+    <section id="why-hire-me" class="min-h-screen flex items-center py-24 bg-brand-lightBlue/30 border-t border-white/5">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+            <div class="text-center mb-16">
+                <h2 class="text-brand-orange font-bold tracking-wider uppercase mb-2">The Advantage</h2>
+                <h3 class="text-4xl md:text-5xl font-heading font-bold text-white">Why Hire Me?</h3>
+                <p class="text-gray-400 mt-4 max-w-2xl mx-auto">25+ years of design expertise, strategic thinking, and a relentless drive to make your brand the one people remember.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+                <!-- SKILL 1 -->
+                <div class="card-top-accent-light group relative bg-gradient-to-br from-brand-orange to-orange-700 rounded-2xl p-8 border border-white/20 hover:border-white/50 transition-all duration-300 hover:-translate-y-2 shadow-xl shadow-brand-orange/25 flex flex-col overflow-hidden">
+                    <span class="card-number" style="color:rgba(0,0,0,0.07);">01</span>
+                    <h4 class="text-2xl font-heading font-bold text-white mb-3 mt-2">25+ Years of Mastery</h4>
+                    <p class="text-white/80 leading-relaxed flex-grow">Over two decades of experience across advertising agencies in France and Canada — working for global powerhouses like Nike, Blackberry, WWF, Rogers, and Philips. That depth of experience translates directly into results for your brand.</p>
+                </div>
+
+                <!-- SKILL 2 -->
+                <div class="card-top-accent-light group relative bg-gradient-to-br from-brand-orange to-orange-700 rounded-2xl p-8 border border-white/20 hover:border-white/50 transition-all duration-300 hover:-translate-y-2 shadow-xl shadow-brand-orange/25 flex flex-col overflow-hidden">
+                    <span class="card-number" style="color:rgba(0,0,0,0.07);">02</span>
+                    <h4 class="text-2xl font-heading font-bold text-white mb-3 mt-2">Strategic Brand Thinking</h4>
+                    <p class="text-white/80 leading-relaxed flex-grow">Design without strategy is just decoration. Every project begins with understanding your audience, your competition, and your goals — then crafting a visual identity that communicates your value proposition at a glance.</p>
+                </div>
+
+                <!-- SKILL 3 -->
+                <div class="card-top-accent-light group relative bg-gradient-to-br from-brand-orange to-orange-700 rounded-2xl p-8 border border-white/20 hover:border-white/50 transition-all duration-300 hover:-translate-y-2 shadow-xl shadow-brand-orange/25 flex flex-col overflow-hidden">
+                    <span class="card-number" style="color:rgba(0,0,0,0.07);">03</span>
+                    <h4 class="text-2xl font-heading font-bold text-white mb-3 mt-2">Multi-Discipline Expertise</h4>
+                    <p class="text-white/80 leading-relaxed flex-grow">From brand identity and print collateral to digital ads, UI mockups, and custom illustration — you get one expert who handles your entire visual ecosystem with consistency. No juggling multiple freelancers.</p>
+                </div>
+
+                <!-- SKILL 4 -->
+                <div class="card-top-accent-light group relative bg-gradient-to-br from-brand-orange to-orange-700 rounded-2xl p-8 border border-white/20 hover:border-white/50 transition-all duration-300 hover:-translate-y-2 shadow-xl shadow-brand-orange/25 flex flex-col overflow-hidden">
+                    <span class="card-number" style="color:rgba(0,0,0,0.07);">04</span>
+                    <h4 class="text-2xl font-heading font-bold text-white mb-3 mt-2">Fast & Reliable Delivery</h4>
+                    <p class="text-white/80 leading-relaxed flex-grow">Deadlines are sacred. Whether you need a campaign asset in 48 hours or a full brand kit in two weeks, I deliver on time — without sacrificing quality. Clear communication from brief to final file.</p>
+                </div>
+
+                <!-- SKILL 5 -->
+                <div class="card-top-accent-light group relative bg-gradient-to-br from-brand-orange to-orange-700 rounded-2xl p-8 border border-white/20 hover:border-white/50 transition-all duration-300 hover:-translate-y-2 shadow-xl shadow-brand-orange/25 flex flex-col overflow-hidden">
+                    <span class="card-number" style="color:rgba(0,0,0,0.07);">05</span>
+                    <h4 class="text-2xl font-heading font-bold text-white mb-3 mt-2">Agency Quality, Freelance Price</h4>
+                    <p class="text-white/80 leading-relaxed flex-grow">You get the craft and polish of a seasoned agency creative — without the overhead, the account managers, and the inflated invoices. Direct access to the person actually designing your work.</p>
+                </div>
+
+                <!-- SKILL 6 -->
+                <div class="card-top-accent-light group relative bg-gradient-to-br from-brand-orange to-orange-700 rounded-2xl p-8 border border-white/20 hover:border-white/50 transition-all duration-300 hover:-translate-y-2 shadow-xl shadow-brand-orange/25 flex flex-col overflow-hidden">
+                    <span class="card-number" style="color:rgba(0,0,0,0.07);">06</span>
+                    <h4 class="text-2xl font-heading font-bold text-white mb-3 mt-2">True Creative Partnership</h4>
+                    <p class="text-white/80 leading-relaxed flex-grow">I don't just execute briefs — I collaborate. You'll be involved at every key step, with transparent feedback loops and revisions built in. The result is work you're proud to put your name on.</p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- 
+    ========================================================================
+    7. FINAL CTA & CONTACT SECTION (The Brief Form)
+    ======================================================================== 
+    -->
+    <section id="contact" class="min-h-screen flex items-center py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="bg-brand-lightBlue rounded-3xl p-8 md:p-16 border border-brand-grey/30 shadow-2xl relative overflow-hidden">
+            <!-- Decorative circle -->
+            <div class="absolute -right-20 -top-20 w-64 h-64 bg-brand-orange rounded-full mix-blend-multiply filter blur-3xl opacity-20"></div>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 relative z-10">
+                
+                <!-- Contact Info -->
+                <div>
+                    <h2 class="text-5xl font-heading font-bold text-white mb-6">Ready to upgrade your visual presence?</h2>
+                    <p class="text-gray-400 text-lg mb-10">Fill out the brief form to give me an idea of your needs, or reach out directly. I aim to respond to all inquiries within 24 hours.</p>
+                    
+                    <!-- EDIT: Your Contact Details -->
+                    <div class="space-y-6">
+                        <div class="flex items-start">
+                            <div class="w-10 h-10 rounded-full bg-brand-blue flex items-center justify-center text-brand-orange mr-4 shrink-0">
+                                📧
+                            </div>
+                            <div>
+                                <p class="text-sm text-gray-500 uppercase tracking-wide">Email Me</p>
+                                <a href="mailto:hello@ngcreative.com" class="text-white font-bold text-lg hover:text-brand-orange transition">hello@ngcreative.com</a>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="w-10 h-10 rounded-full bg-brand-blue flex items-center justify-center text-brand-orange mr-4 shrink-0">
+                                📱
+                            </div>
+                            <div>
+                                <p class="text-sm text-gray-500 uppercase tracking-wide">Call Me</p>
+                                <a href="tel:+15551234567" class="text-white font-bold text-lg hover:text-brand-orange transition">+1 (555) 123-4567</a>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="w-10 h-10 rounded-full bg-brand-blue flex items-center justify-center text-brand-orange mr-4 shrink-0">
+                                📍
+                            </div>
+                            <div>
+                                <p class="text-sm text-gray-500 uppercase tracking-wide">Location</p>
+                                <p class="text-white font-bold text-lg">New York, NY (Remote Worldwide)</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Client Brief Form -->
+                <!-- EDIT: You can connect this form to Formspree, Netlify Forms, or PHP backend later -->
+                <div class="bg-brand-blue p-8 rounded-2xl border border-white/5">
+                    <h3 class="text-2xl font-bold text-white mb-6">Project Brief</h3>
+                    <form action="#" method="POST" class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-400 mb-1">Your Name</label>
+                            <input type="text" class="w-full bg-brand-lightBlue border border-brand-grey/50 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-brand-orange focus:ring-1 focus:ring-brand-orange transition" placeholder="John Doe" required>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-400 mb-1">Email Address</label>
+                            <input type="email" class="w-full bg-brand-lightBlue border border-brand-grey/50 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-brand-orange focus:ring-1 focus:ring-brand-orange transition" placeholder="john@company.com" required>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-400 mb-1">What do you need help with?</label>
+                            <select class="w-full bg-brand-lightBlue border border-brand-grey/50 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-brand-orange focus:ring-1 focus:ring-brand-orange transition">
+                                <option>Brand Identity</option>
+                                <option>Web & UI Design</option>
+                                <option>Social Media Assets</option>
+                                <option>Print & Packaging</option>
+                                <option>Other</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-400 mb-1">Project Details / Budget</label>
+                            <textarea rows="4" class="w-full bg-brand-lightBlue border border-brand-grey/50 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-brand-orange focus:ring-1 focus:ring-brand-orange transition" placeholder="Tell me a bit about your goals..."></textarea>
+                        </div>
+                        <button type="submit" class="w-full bg-brand-orange hover:bg-orange-600 text-white font-bold py-4 rounded-lg transition-colors shadow-lg mt-4">
+                            Send Request &rarr;
+                        </button>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- 
+    ========================================================================
+    8. FOOTER
+    ======================================================================== 
+    -->
+    <footer class="bg-brand-blue border-t border-white/10 pt-16 pb-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-center mb-12">
+                <!-- Footer Logo -->
+                <div class="mb-6 md:mb-0">
+                    <a href="#" class="text-2xl font-heading font-extrabold text-white tracking-wide">
+                        NG<span class="text-brand-orange">Creative</span>
+                    </a>
+                    <p class="text-gray-500 text-sm mt-2">Designing for conversion.</p>
+                </div>
+                
+                <!-- Social & Partner Placeholders (Free Rights Icons representation) -->
+                <!-- EDIT: Update href links to your social profiles -->
+                <div class="flex space-x-6">
+                    <a href="#" class="text-gray-400 hover:text-brand-orange transition">
+                        <span class="sr-only">Instagram</span>
+                        <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                            <path fill-rule="evenodd" d="M12.315 2c2.43 0 2.784.013 3.808.06 1.064.049 1.791.218 2.427.465a4.902 4.902 0 011.772 1.153 4.902 4.902 0 011.153 1.772c.247.636.416 1.363.465 2.427.048 1.067.06 1.407.06 4.123v.08c0 2.643-.012 2.987-.06 4.043-.049 1.064-.218 1.791-.465 2.427a4.902 4.902 0 01-1.153 1.772 4.902 4.902 0 01-1.772 1.153c-.636.247-1.363.416-2.427.465-1.067.048-1.407.06-4.123.06h-.08c-2.643 0-2.987-.012-4.043-.06-1.064-.049-1.791-.218-2.427-.465a4.902 4.902 0 01-1.772-1.153 4.902 4.902 0 01-1.153-1.772c-.247-.636-.416-1.363-.465-2.427-.047-1.024-.06-1.379-.06-3.808v-.63c0-2.43.013-2.784.06-3.808.049-1.064.218-1.791.465-2.427a4.902 4.902 0 011.153-1.772A4.902 4.902 0 015.45 2.525c.636-.247 1.363-.416 2.427-.465C8.901 2.013 9.256 2 11.685 2h.63zm-.081 1.802h-.468c-2.456 0-2.784.011-3.807.058-.975.045-1.504.207-1.857.344-.467.182-.8.398-1.15.748-.35.35-.566.683-.748 1.15-.137.353-.3.882-.344 1.857-.047 1.023-.058 1.351-.058 3.807v.468c0 2.456.011 2.784.058 3.807.045.975.207 1.504.344 1.857.182.466.399.8.748 1.15.35.35.683.566 1.15.748.353.137.882.3 1.857.344 1.054.048 1.37.058 4.041.058h.08c2.597 0 2.917-.01 3.96-.058.976-.045 1.505-.207 1.858-.344.466-.182.8-.398 1.15-.748.35-.35.566-.683.748-1.15.137-.353.3-.882.344-1.857.048-1.055.058-1.37.058-4.041v-.08c0-2.597-.01-2.917-.058-3.96-.045-.976-.207-1.505-.344-1.858a3.097 3.097 0 00-.748-1.15 3.098 3.098 0 00-1.15-.748c-.353-.137-.882-.3-1.857-.344-1.023-.047-1.351-.058-3.807-.058zM12 6.865a5.135 5.135 0 110 10.27 5.135 5.135 0 010-10.27zm0 1.802a3.333 3.333 0 100 6.666 3.333 3.333 0 000-6.666zm5.338-3.205a1.2 1.2 0 110 2.4 1.2 1.2 0 010-2.4z" clip-rule="evenodd" />
+                        </svg>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-brand-orange transition">
+                        <span class="sr-only">LinkedIn</span>
+                        <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                            <path fill-rule="evenodd" d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" clip-rule="evenodd" />
+                        </svg>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-brand-orange transition">
+                        <span class="sr-only">Behance</span>
+                        <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                            <path fill-rule="evenodd" d="M8.228 15.01h-2.228v-2.01h2.261c1.868 0 2.019 2.01 0 2.01zm6.758-2.677h3.018c-.117-1.715-2.73-1.977-3.018 0zm-6.804-3.333h-1.954v-1.849h2.029c1.385 0 1.637 1.849-.075 1.849zm15.818-4.045v14.09c0 2.761-2.238 5-5 5h-14c-2.761 0-5-2.239-5-5v-14c0-2.761 2.239-5 5-5h14c2.762 0 5 2.239 5 5zm-14.28 9.582c1.721.469 3.513-.391 3.513-2.617 0-1.625-1.074-2.607-2.502-2.825 1.157-.367 1.942-1.503 1.942-2.535 0-2.315-2.384-2.473-3.66-2.473h-5.013v11.51h5.367c2.569 0 3.336-1.558 3.336-2.909 0-1.782-1.393-2.605-2.983-2.605h-1.442v4.454h1.442zm10.28-4.721c-2.834-1.01-6.177.308-5.918 3.864.195 2.684 3.109 3.992 5.641 2.378l-.838-1.53c-1.127.769-2.936.438-2.936-1.002h4.152c1.472-3.418-1.055-6.046-4.101-5.632v-.006zm-3.473-1.674h4.152v-1.134h-4.152v1.134z" clip-rule="evenodd" />
+                        </svg>
+                    </a>
+                </div>
+            </div>
+            
+            <div class="text-center md:text-left text-gray-600 text-sm">
+                <p>&copy; <span id="year"></span> NG Creative Studio. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- 
+    ========================================================================
+    JAVASCRIPT FOR FUNCTIONALITY
+    ======================================================================== 
+    -->
+    <script>
+        // ================================================================
+        // HERO GALLERY — Auto-rotating fade slideshow with dot navigation
+        // ================================================================
+        // To add more slides: just add more <div class="hero-slide"> in the
+        // HTML above. The code below detects all slides automatically.
+        // ================================================================
+        (function () {
+            const slides      = document.querySelectorAll('#hero-gallery .hero-slide');
+            const dotsWrap    = document.getElementById('hero-dots');
+            const INTERVAL_MS = 5000;  // ← change to adjust auto-advance speed
+            let   current     = 0;
+            let   timer;
+
+            // Build dots programmatically (one per slide)
+            slides.forEach(function (_, i) {
+                const btn = document.createElement('button');
+                btn.className    = 'hero-dot' + (i === 0 ? ' active' : '');
+                btn.setAttribute('aria-label', 'Go to slide ' + (i + 1));
+                btn.addEventListener('click', function () { goTo(i); });
+                dotsWrap.appendChild(btn);
+            });
+
+            function goTo(n) {
+                slides[current].classList.remove('active');
+                dotsWrap.children[current].classList.remove('active');
+                current = (n + slides.length) % slides.length;
+                slides[current].classList.add('active');
+                dotsWrap.children[current].classList.add('active');
+                clearInterval(timer);
+                timer = setInterval(function () { goTo(current + 1); }, INTERVAL_MS);
+            }
+
+            timer = setInterval(function () { goTo(current + 1); }, INTERVAL_MS);
+        })();
+
+        // Update copyright year automatically
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        // Mobile Menu Toggle
+        const btn = document.getElementById('mobile-menu-btn');
+        const menu = document.getElementById('mobile-menu');
+
+        btn.addEventListener('click', () => {
+            menu.classList.toggle('hidden');
+        });
+
+        // Close mobile menu when a link is clicked
+        const mobileLinks = menu.querySelectorAll('a');
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                menu.classList.add('hidden');
+            });
+        });
+
+        // Portfolio Lightbox Modal Logic
+        const modal = document.getElementById('portfolio-modal');
+        const modalImg = document.getElementById('modal-img');
+        const modalTitle = document.getElementById('modal-title');
+        const modalDesc = document.getElementById('modal-desc');
+
+        function openModal(element) {
+            // Get data from clicked item
+            const fullImgSrc = element.getAttribute('data-full');
+            const title = element.getAttribute('data-title');
+            const desc = element.getAttribute('data-desc');
+
+            // Set data into modal
+            modalImg.src = fullImgSrc;
+            modalTitle.textContent = title;
+            modalDesc.textContent = desc;
+
+            // Show modal
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                modal.classList.add('visible');
+            }, 10);
+            
+            // Prevent background scrolling
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            modal.classList.remove('visible');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+                modalImg.src = ""; // Clear image
+            }, 300); // Matches CSS transition duration
+            
+            // Restore background scrolling
+            document.body.style.overflow = 'auto';
+        }
+
+        // Close modal on Escape key press
+        document.addEventListener('keydown', function(event) {
+            if (event.key === "Escape" && !modal.classList.contains('hidden')) {
+                closeModal();
+            }
+        });
+    </script>
+</body>
+</html>
