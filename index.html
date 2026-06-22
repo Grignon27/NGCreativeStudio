@@ -137,6 +137,39 @@
         /* Hover Effects */
         .hover-orange:hover { color: #FF6B35; transition: color 0.3s; }
         .border-hover-orange:hover { border-color: #FF6B35; transition: border-color 0.3s; }
+
+        /* ================================================================
+           GALLERY PATCHWORK — placeholder styles
+           ================================================================ */
+        .gallery-cell { position: relative; overflow: hidden; border-radius: 0.75rem; cursor: pointer; }
+        .gallery-cell .gallery-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 1; transition: transform 0.7s ease; }
+        .gallery-cell:hover .gallery-img { transform: scale(1.08); }
+        .gallery-cell .gallery-placeholder-bg {
+            position: absolute; inset: 0; z-index: 0;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            background: linear-gradient(135deg, #1C2541 0%, #0B132B 100%);
+            border: 1px solid rgba(255,255,255,0.07);
+        }
+        .gallery-cell .gallery-hover-overlay {
+            position: absolute; inset: 0; z-index: 2;
+            background: linear-gradient(to top, rgba(11,19,43,0.92) 0%, transparent 60%);
+            opacity: 0; transition: opacity 0.35s ease;
+        }
+        .gallery-cell:hover .gallery-hover-overlay { opacity: 1; }
+        .gallery-cell .gallery-caption {
+            position: absolute; bottom: 0; left: 0; padding: 1.5rem; z-index: 3;
+            transform: translateY(0.75rem); opacity: 0; transition: transform 0.3s ease, opacity 0.3s ease;
+        }
+        .gallery-cell:hover .gallery-caption { transform: translateY(0); opacity: 1; }
+
+        /* ================================================================
+           EMAIL MODAL — popup contact form
+           ================================================================ */
+        #email-modal { transition: opacity 0.3s ease; }
+        #email-modal.hidden { opacity: 0; pointer-events: none; }
+        #email-modal.visible { opacity: 1; pointer-events: auto; }
+        .form-success { display: none; }
+        .form-success.show { display: flex; }
     </style>
 </head>
 <body class="antialiased selection:bg-brand-orange selection:text-white">
@@ -163,6 +196,7 @@
                     <a href="#about" class="hover-orange">About</a>
                     <a href="#services" class="hover-orange">Pricing</a>
                     <a href="#portfolio" class="hover-orange">Portfolio</a>
+                    <a href="#gallery" class="hover-orange">Gallery</a>
                     <a href="#why-hire-me" class="hover-orange">Why Hire Me?</a>
                     <!-- CALL TO ACTION BUTTON -->
                     <a href="#contact" class="bg-brand-orange hover:bg-orange-600 text-white px-6 py-2.5 rounded-full font-bold transition-all shadow-lg shadow-brand-orange/30">Start a Project</a>
@@ -185,6 +219,7 @@
                 <a href="#about" class="block px-3 py-2 text-gray-300 hover:text-brand-orange">About</a>
                 <a href="#services" class="block px-3 py-2 text-gray-300 hover:text-brand-orange">Services</a>
                 <a href="#portfolio" class="block px-3 py-2 text-gray-300 hover:text-brand-orange">Portfolio</a>
+                <a href="#gallery" class="block px-3 py-2 text-gray-300 hover:text-brand-orange">Gallery</a>
                 <a href="#contact" class="block px-3 py-2 text-brand-orange font-bold">Start a Project</a>
             </div>
         </div>
@@ -280,7 +315,6 @@
             
             <!-- EDIT: Your Profile Picture Here -->
             <div class="relative">
-                <div class="absolute inset-0 bg-brand-orange rounded-3xl transform translate-x-4 translate-y-4"></div>
                 <img src="Images/Nicolas.jpeg" alt="Your Name" class="relative rounded-3xl shadow-2xl w-full h-[500px] object-cover border-4 border-brand-blue">
             </div>
 
@@ -293,10 +327,6 @@
                 <div class="text-gray-400 space-y-4 text-lg leading-relaxed">
                     <p>With over 25 years of experience in the advertising and design industry, in france and in Canada. I Worked for prestigious clients over the years - Blackberry, Edwrd Jones, WWF, Nike, Philips, Rogers, etc...  When I design, I don't just make things look pretty; I design to make your vision last.</p>
                     <p>Whether you are a startup needing a complete brand identity or an established business looking to refresh your marketing materials, my goal is to deliver agency-quality graphics without the agency overhead.</p>
-                </div>
-
-                <div class="mt-8">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c2/Signature_placeholder.svg/1200px-Signature_placeholder.svg.png" alt="Signature" class="h-12 filter invert opacity-70">
                 </div>
             </div>
         </div>
@@ -500,11 +530,195 @@
         </div>
     </div>
 
-    <!-- 
-    ========================================================================
-    6. WHY HIRE ME SECTION
-    ======================================================================== 
-    -->
+    <section id="gallery" class="py-24 bg-brand-lightBlue/20 border-t border-white/5">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+            <div class="text-center mb-16">
+                <h2 class="text-brand-orange font-bold tracking-wider uppercase mb-2">Full Portfolio</h2>
+                <h3 class="text-4xl md:text-5xl font-heading font-bold text-white">Projects Gallery</h3>
+                <p class="text-gray-400 mt-4 max-w-2xl mx-auto">A curated collection of projects across branding, advertising, illustration, and web design. CLICK on the thumbnail to see a full project image</p>
+            </div>
+
+            <!-- Patchwork grid — 3 columns on desktop, 2 on mobile.
+                 Each row is 220 px tall; spanning items are taller/wider. -->
+            <div class="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-4" style="grid-auto-rows: 220px;">
+
+                <!-- ── SLOT 1 — LARGE (2 cols × 2 rows) ─────────────────── -->
+                <!-- REPLACE IMG --> <div class="gallery-cell col-span-2 md:col-span-2 row-span-2"
+                     onclick="openModal(this)"
+                     data-full="Gallery/Lotus.jpg"
+                     data-title="Blackberrym and IBM Lotus Ad."
+                     data-desc="Magazine Ad for the alliance Blackberry and IBM Lotus">
+                    <img src="Gallery/Lotus.jpg" alt="Project 1"
+                         class="gallery-img"
+                         onerror="this.style.display='none'">
+                    <div class="gallery-placeholder-bg">
+                        <span class="text-7xl font-heading font-extrabold text-white/5 leading-none select-none">01</span>
+                        <svg class="w-10 h-10 text-brand-grey/40 mt-3 mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                        <p class="text-brand-grey/50 text-xs uppercase tracking-widest">Image Slot 1 · Replace src</p>
+                    </div>
+                    <div class="gallery-hover-overlay"></div>
+                    <div class="gallery-caption">
+                        <p class="text-brand-orange text-xs font-bold uppercase mb-1 tracking-wider">Category</p>
+                        <h4 class="text-lg font-heading font-bold text-white">Blackberry IBM Ad.</h4>
+                    </div>
+                </div>
+
+                <!-- ── SLOT 2 — SMALL (1×1) ─────────────────────────────── -->
+                <!-- REPLACE IMG --> <div class="gallery-cell col-span-1 row-span-1"
+                     onclick="openModal(this)"
+                     data-full="Gallery/Advertising Roissy fenetre.jpg"
+                     data-title="Ad project for Roissy Windows"
+                     data-desc="One of many project for Roissy Windows near Roissy Airport.">
+                    <img src="Gallery/Advertising Roissy fenetre.jpg" alt="Project 2" class="gallery-img" onerror="this.style.display='none'">
+                    <div class="gallery-placeholder-bg">
+                        <span class="text-5xl font-heading font-extrabold text-white/5 leading-none select-none">02</span>
+                        <svg class="w-7 h-7 text-brand-grey/40 mt-2 mb-1" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                        <p class="text-brand-grey/50 text-[10px] uppercase tracking-widest">Slot 2</p>
+                    </div>
+                    <div class="gallery-hover-overlay"></div>
+                    <div class="gallery-caption">
+                        <p class="text-brand-orange text-xs font-bold uppercase mb-1 tracking-wider">Category</p>
+                        <h4 class="text-base font-heading font-bold text-white">Roissy Windows</h4>
+                    </div>
+                </div>
+
+                <!-- ── SLOT 3 — SMALL (1×1) ─────────────────────────────── -->
+                <!-- REPLACE IMG --> <div class="gallery-cell col-span-1 row-span-1"
+                     onclick="openModal(this)"
+                     data-full="Gallery/RESO-logo1.jpg"
+                     data-title="Logo Research RESO"
+                     data-desc="Logo research for RESO Organic Groceries">
+                    <img src="Gallery/RESO-logo1.jpg" alt="Project 3" class="gallery-img" onerror="this.style.display='none'">
+                    <div class="gallery-placeholder-bg">
+                        <span class="text-5xl font-heading font-extrabold text-white/5 leading-none select-none">03</span>
+                        <svg class="w-7 h-7 text-brand-grey/40 mt-2 mb-1" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                        <p class="text-brand-grey/50 text-[10px] uppercase tracking-widest">Slot 3</p>
+                    </div>
+                    <div class="gallery-hover-overlay"></div>
+                    <div class="gallery-caption">
+                        <p class="text-brand-orange text-xs font-bold uppercase mb-1 tracking-wider">Category</p>
+                        <h4 class="text-base font-heading font-bold text-white">RESO</h4>
+                    </div>
+                </div>
+
+                <!-- ── SLOT 4 — SMALL (1×1) ─────────────────────────────── -->
+                <!-- REPLACE IMG --> <div class="gallery-cell col-span-1 row-span-1"
+                     onclick="openModal(this)"
+                     data-full="Gallery/BEW FLYER - 4SUZUKITEACHER copy.jpg"
+                     data-title="Flyer OSA"
+                     data-desc="Flyer for the oakville Suzuki Association">
+                    <img src="Gallery/BEW FLYER - 4SUZUKITEACHER copy.jpg" alt="Project 4" class="gallery-img" onerror="this.style.display='none'">
+                    <div class="gallery-placeholder-bg">
+                        <span class="text-5xl font-heading font-extrabold text-white/5 leading-none select-none">04</span>
+                        <svg class="w-7 h-7 text-brand-grey/40 mt-2 mb-1" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                        <p class="text-brand-grey/50 text-[10px] uppercase tracking-widest">Slot 4</p>
+                    </div>
+                    <div class="gallery-hover-overlay"></div>
+                    <div class="gallery-caption">
+                        <p class="text-brand-orange text-xs font-bold uppercase mb-1 tracking-wider">Category</p>
+                        <h4 class="text-base font-heading font-bold text-white">OSA Flyer</h4>
+                    </div>
+                </div>
+
+                <!-- ── SLOT 5 — WIDE (2 cols × 1 row) ───────────────────── -->
+                <!-- REPLACE IMG --> <div class="gallery-cell col-span-2 md:col-span-2 row-span-1"
+                     onclick="openModal(this)"
+                     data-full="Gallery/gentleman.jpg"
+                     data-title="Monoprix"
+                     data-desc="Monoprix Ad campaign with word games with Proust's Novel Title">
+                    <img src="Gallery/gentleman.jpg" alt="Project 5" class="gallery-img" onerror="this.style.display='none'">
+                    <div class="gallery-placeholder-bg">
+                        <span class="text-5xl font-heading font-extrabold text-white/5 leading-none select-none">05</span>
+                        <svg class="w-7 h-7 text-brand-grey/40 mt-2 mb-1" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                        <p class="text-brand-grey/50 text-[10px] uppercase tracking-widest">Slot 5 · Wide Image</p>
+                    </div>
+                    <div class="gallery-hover-overlay"></div>
+                    <div class="gallery-caption">
+                        <p class="text-brand-orange text-xs font-bold uppercase mb-1 tracking-wider">Category</p>
+                        <h4 class="text-lg font-heading font-bold text-white">Monoprix</h4>
+                    </div>
+                </div>
+
+                <!-- ── SLOT 6 — TALL (1×2) ──────────────────────────────── -->
+                <!-- REPLACE IMG --> <div class="gallery-cell col-span-1 row-span-2"
+                     onclick="openModal(this)"
+                     data-full="Gallery/McCain.jpg"
+                     data-title="McCain magazine Ad"
+                     data-desc="Celebrate Woman's day with McCain">
+                    <img src="Gallery/McCain.jpg" alt="Project 6" class="gallery-img" onerror="this.style.display='none'">
+                    <div class="gallery-placeholder-bg">
+                        <span class="text-6xl font-heading font-extrabold text-white/5 leading-none select-none">06</span>
+                        <svg class="w-8 h-8 text-brand-grey/40 mt-3 mb-1" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                        <p class="text-brand-grey/50 text-[10px] uppercase tracking-widest">Slot 6 · Tall Image</p>
+                    </div>
+                    <div class="gallery-hover-overlay"></div>
+                    <div class="gallery-caption">
+                        <p class="text-brand-orange text-xs font-bold uppercase mb-1 tracking-wider">Category</p>
+                        <h4 class="text-lg font-heading font-bold text-white">Project Title 6</h4>
+                    </div>
+                </div>
+
+                <!-- ── SLOT 7 — SMALL (1×1) ─────────────────────────────── -->
+                <!-- REPLACE IMG --> <div class="gallery-cell col-span-1 row-span-1"
+                     onclick="openModal(this)"
+                     data-full="Gallery/LeRetourduneLegende2.jpg"
+                     data-title="The new Electric Citroen"
+                     data-desc="Project for a cheap electric car, the new retrofit 2CV">
+                    <img src="Gallery/LeRetourduneLegende2.jpg" alt="Project 7" class="gallery-img" onerror="this.style.display='none'">
+                    <div class="gallery-placeholder-bg">
+                        <span class="text-5xl font-heading font-extrabold text-white/5 leading-none select-none">07</span>
+                        <svg class="w-7 h-7 text-brand-grey/40 mt-2 mb-1" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                        <p class="text-brand-grey/50 text-[10px] uppercase tracking-widest">Slot 7</p>
+                    </div>
+                    <div class="gallery-hover-overlay"></div>
+                    <div class="gallery-caption">
+                        <p class="text-brand-orange text-xs font-bold uppercase mb-1 tracking-wider">Category</p>
+                        <h4 class="text-base font-heading font-bold text-white">Citroen</h4>
+                    </div>
+                </div>
+
+                <!-- ── SLOT 8 — SMALL (1×1) ─────────────────────────────── -->
+                <!-- REPLACE IMG --> <div class="gallery-cell col-span-1 row-span-1"
+                     onclick="openModal(this)"
+                     data-full="Gallery/Maison du café packaging.jpg"
+                     data-title="Maison du café"
+                     data-desc="Packaging for Maison du Café">
+                    <img src="Gallery/Maison du café packaging.jpg" alt="Project 8" class="gallery-img" onerror="this.style.display='none'">
+                    <div class="gallery-placeholder-bg">
+                        <span class="text-5xl font-heading font-extrabold text-white/5 leading-none select-none">08</span>
+                        <svg class="w-7 h-7 text-brand-grey/40 mt-2 mb-1" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                        <p class="text-brand-grey/50 text-[10px] uppercase tracking-widest">Slot 8</p>
+                    </div>
+                    <div class="gallery-hover-overlay"></div>
+                    <div class="gallery-caption">
+                        <p class="text-brand-orange text-xs font-bold uppercase mb-1 tracking-wider">Category</p>
+                        <h4 class="text-base font-heading font-bold text-white">Maison du Café</h4>
+                    </div>
+                </div>
+
+                <!-- ── SLOT 9 — WIDE (2 cols × 1 row) ───────────────────── -->
+                <!-- REPLACE IMG --> <div class="gallery-cell col-span-2 md:col-span-2 row-span-1"
+                     onclick="openModal(this)"
+                     data-full="Gallery/Flier PCV.jpg"
+                     data-title="PCV Vynils -  Oakville"
+                     data-desc="Flyer for the PCV Vinyls shop">
+                    <img src="Gallery/Flier PCV.jpg" alt="Project 9" class="gallery-img" onerror="this.style.display='none'">
+                    <div class="gallery-placeholder-bg">
+                        <span class="text-5xl font-heading font-extrabold text-white/5 leading-none select-none">09</span>
+                        <svg class="w-7 h-7 text-brand-grey/40 mt-2 mb-1" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                        <p class="text-brand-grey/50 text-[10px] uppercase tracking-widest">Slot 9 · Wide Image</p>
+                    </div>
+                    <div class="gallery-hover-overlay"></div>
+                    <div class="gallery-caption">
+                        <p class="text-brand-orange text-xs font-bold uppercase mb-1 tracking-wider">Category</p>
+                        <h4 class="text-lg font-heading font-bold text-white">PCV Vinyls</h4>
+                    </div>
+                </div>
+
+            </div><!-- /grid -->
+        </div>
+    </section>
     <section id="why-hire-me" class="min-h-screen flex items-center py-24 bg-brand-lightBlue/30 border-t border-white/5">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
             <div class="text-center mb-16">
@@ -586,7 +800,7 @@
                             </div>
                             <div>
                                 <p class="text-sm text-gray-500 uppercase tracking-wide">Email Me</p>
-                                <a href="mailto:hello@ngcreative.com" class="text-white font-bold text-lg hover:text-brand-orange transition">hello@ngcreative.com</a>
+                                <button onclick="openEmailModal()" class="text-white font-bold text-lg hover:text-brand-orange transition text-left">Send me a message &rarr;</button>
                             </div>
                         </div>
                         <div class="flex items-start">
@@ -595,7 +809,7 @@
                             </div>
                             <div>
                                 <p class="text-sm text-gray-500 uppercase tracking-wide">Call Me</p>
-                                <a href="tel:+15551234567" class="text-white font-bold text-lg hover:text-brand-orange transition">+1 (555) 123-4567</a>
+                                <a href="tel:+15551234567" class="text-white font-bold text-lg hover:text-brand-orange transition">+1 (647) 612-0175</a>
                             </div>
                         </div>
                         <div class="flex items-start">
@@ -604,28 +818,39 @@
                             </div>
                             <div>
                                 <p class="text-sm text-gray-500 uppercase tracking-wide">Location</p>
-                                <p class="text-white font-bold text-lg">New York, NY (Remote Worldwide)</p>
+                                <p class="text-white font-bold text-lg">Oakville, ON (Remote Worldwide)</p>
                             </div>
                         </div>
                     </div>
                 </div>
 
                 <!-- Client Brief Form -->
-                <!-- EDIT: You can connect this form to Formspree, Netlify Forms, or PHP backend later -->
                 <div class="bg-brand-blue p-8 rounded-2xl border border-white/5">
                     <h3 class="text-2xl font-bold text-white mb-6">Project Brief</h3>
-                    <form action="#" method="POST" class="space-y-4">
+
+                    <!-- Success message (hidden until form sent) -->
+                    <div id="brief-success" class="form-success hidden flex-col items-center justify-center text-center py-12">
+                        <div class="w-16 h-16 rounded-full bg-brand-orange/20 flex items-center justify-center mb-4">
+                            <svg class="w-8 h-8 text-brand-orange" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                        </div>
+                        <h4 class="text-xl font-bold text-white mb-2">Message sent!</h4>
+                        <p class="text-gray-400">Thank you for reaching out. I'll get back to you within 24 hours.</p>
+                    </div>
+
+                    <form id="brief-form" action="https://formspree.io/f/xwvjgrpw" method="POST" class="space-y-4">
+                        <!-- Hidden field: Formspree uses this as the subject prefix -->
+                        <input type="hidden" name="_subject" value="New Project Brief from NG Creative Website">
                         <div>
                             <label class="block text-sm font-medium text-gray-400 mb-1">Your Name</label>
-                            <input type="text" class="w-full bg-brand-lightBlue border border-brand-grey/50 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-brand-orange focus:ring-1 focus:ring-brand-orange transition" placeholder="John Doe" required>
+                            <input type="text" name="name" class="w-full bg-brand-lightBlue border border-brand-grey/50 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-brand-orange focus:ring-1 focus:ring-brand-orange transition" placeholder="John Doe" required>
                         </div>
                         <div>
                             <label class="block text-sm font-medium text-gray-400 mb-1">Email Address</label>
-                            <input type="email" class="w-full bg-brand-lightBlue border border-brand-grey/50 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-brand-orange focus:ring-1 focus:ring-brand-orange transition" placeholder="john@company.com" required>
+                            <input type="email" name="email" class="w-full bg-brand-lightBlue border border-brand-grey/50 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-brand-orange focus:ring-1 focus:ring-brand-orange transition" placeholder="john@company.com" required>
                         </div>
                         <div>
                             <label class="block text-sm font-medium text-gray-400 mb-1">What do you need help with?</label>
-                            <select class="w-full bg-brand-lightBlue border border-brand-grey/50 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-brand-orange focus:ring-1 focus:ring-brand-orange transition">
+                            <select name="service" class="w-full bg-brand-lightBlue border border-brand-grey/50 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-brand-orange focus:ring-1 focus:ring-brand-orange transition">
                                 <option>Brand Identity</option>
                                 <option>Web & UI Design</option>
                                 <option>Social Media Assets</option>
@@ -635,9 +860,9 @@
                         </div>
                         <div>
                             <label class="block text-sm font-medium text-gray-400 mb-1">Project Details / Budget</label>
-                            <textarea rows="4" class="w-full bg-brand-lightBlue border border-brand-grey/50 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-brand-orange focus:ring-1 focus:ring-brand-orange transition" placeholder="Tell me a bit about your goals..."></textarea>
+                            <textarea name="message" rows="4" class="w-full bg-brand-lightBlue border border-brand-grey/50 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-brand-orange focus:ring-1 focus:ring-brand-orange transition" placeholder="Tell me a bit about your goals..."></textarea>
                         </div>
-                        <button type="submit" class="w-full bg-brand-orange hover:bg-orange-600 text-white font-bold py-4 rounded-lg transition-colors shadow-lg mt-4">
+                        <button type="submit" id="brief-submit-btn" class="w-full bg-brand-orange hover:bg-orange-600 text-white font-bold py-4 rounded-lg transition-colors shadow-lg mt-4">
                             Send Request &rarr;
                         </button>
                     </form>
@@ -695,6 +920,66 @@
 
     <!-- 
     ========================================================================
+    EMAIL POPUP MODAL (triggered by clicking "Send me a message")
+    ======================================================================== 
+    -->
+    <div id="email-modal" class="hidden fixed inset-0 z-[200] flex items-center justify-center p-4 sm:p-6">
+        <!-- Backdrop -->
+        <div class="absolute inset-0 bg-brand-blue/95 backdrop-blur-md" onclick="closeEmailModal()"></div>
+
+        <!-- Modal Card -->
+        <div class="relative bg-brand-lightBlue w-full max-w-lg rounded-2xl shadow-2xl border border-white/10 overflow-hidden">
+            <!-- Close button -->
+            <button onclick="closeEmailModal()" class="absolute top-4 right-4 z-10 bg-black/50 hover:bg-brand-orange text-white w-9 h-9 rounded-full flex items-center justify-center transition-colors text-sm">✕</button>
+
+            <!-- Default form view -->
+            <div id="email-modal-form-wrap" class="p-8">
+                <h3 class="text-2xl font-heading font-bold text-white mb-1">Send a Message</h3>
+                <p class="text-gray-400 text-sm mb-6">I'll get back to you within 24 hours.</p>
+
+                <form id="email-modal-form" action="https://formspree.io/f/xwvjgrpw" method="POST" class="space-y-4">
+                    <input type="hidden" name="_subject" value="New Message from NG Creative Website">
+                    <div>
+                        <label class="block text-xs font-medium text-gray-400 uppercase tracking-wider mb-1">Your Name</label>
+                        <input type="text" name="name" placeholder="Jane Smith"
+                               class="w-full bg-brand-blue border border-brand-grey/50 rounded-lg px-4 py-3 text-white text-sm focus:outline-none focus:border-brand-orange focus:ring-1 focus:ring-brand-orange transition" required>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-medium text-gray-400 uppercase tracking-wider mb-1">Your Email</label>
+                        <input type="email" name="email" placeholder="jane@company.com"
+                               class="w-full bg-brand-blue border border-brand-grey/50 rounded-lg px-4 py-3 text-white text-sm focus:outline-none focus:border-brand-orange focus:ring-1 focus:ring-brand-orange transition" required>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-medium text-gray-400 uppercase tracking-wider mb-1">Subject</label>
+                        <input type="text" name="subject" placeholder="What's this about?"
+                               class="w-full bg-brand-blue border border-brand-grey/50 rounded-lg px-4 py-3 text-white text-sm focus:outline-none focus:border-brand-orange focus:ring-1 focus:ring-brand-orange transition">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-medium text-gray-400 uppercase tracking-wider mb-1">Message</label>
+                        <textarea name="message" rows="4" placeholder="Tell me about your project or question..."
+                                  class="w-full bg-brand-blue border border-brand-grey/50 rounded-lg px-4 py-3 text-white text-sm focus:outline-none focus:border-brand-orange focus:ring-1 focus:ring-brand-orange transition resize-none" required></textarea>
+                    </div>
+                    <button type="submit" id="email-modal-submit-btn"
+                            class="w-full bg-brand-orange hover:bg-orange-600 text-white font-bold py-3 rounded-lg transition-colors shadow-lg">
+                        Send Message &rarr;
+                    </button>
+                </form>
+            </div>
+
+            <!-- Success view (hidden until sent) -->
+            <div id="email-modal-success" class="hidden p-8 flex flex-col items-center justify-center text-center py-16">
+                <div class="w-16 h-16 rounded-full bg-brand-orange/20 flex items-center justify-center mb-5">
+                    <svg class="w-8 h-8 text-brand-orange" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                </div>
+                <h4 class="text-2xl font-heading font-bold text-white mb-2">Message Sent!</h4>
+                <p class="text-gray-400 mb-8">Thank you for reaching out. I'll get back to you within 24 hours.</p>
+                <button onclick="closeEmailModal()" class="text-brand-orange font-bold uppercase text-sm tracking-wider hover:text-white transition-colors">Close ✕</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 
+    ========================================================================
     JAVASCRIPT FOR FUNCTIONALITY
     ======================================================================== 
     -->
@@ -702,17 +987,13 @@
         // ================================================================
         // HERO GALLERY — Auto-rotating fade slideshow with dot navigation
         // ================================================================
-        // To add more slides: just add more <div class="hero-slide"> in the
-        // HTML above. The code below detects all slides automatically.
-        // ================================================================
         (function () {
             const slides      = document.querySelectorAll('#hero-gallery .hero-slide');
             const dotsWrap    = document.getElementById('hero-dots');
-            const INTERVAL_MS = 5000;  // ← change to adjust auto-advance speed
+            const INTERVAL_MS = 5000;
             let   current     = 0;
             let   timer;
 
-            // Build dots programmatically (one per slide)
             slides.forEach(function (_, i) {
                 const btn = document.createElement('button');
                 btn.className    = 'hero-dot' + (i === 0 ? ' active' : '');
@@ -745,7 +1026,6 @@
             menu.classList.toggle('hidden');
         });
 
-        // Close mobile menu when a link is clicked
         const mobileLinks = menu.querySelectorAll('a');
         mobileLinks.forEach(link => {
             link.addEventListener('click', () => {
@@ -753,30 +1033,23 @@
             });
         });
 
-        // Portfolio Lightbox Modal Logic
+        // ================================================================
+        // PORTFOLIO LIGHTBOX MODAL
+        // ================================================================
         const modal = document.getElementById('portfolio-modal');
         const modalImg = document.getElementById('modal-img');
         const modalTitle = document.getElementById('modal-title');
         const modalDesc = document.getElementById('modal-desc');
 
         function openModal(element) {
-            // Get data from clicked item
             const fullImgSrc = element.getAttribute('data-full');
             const title = element.getAttribute('data-title');
             const desc = element.getAttribute('data-desc');
-
-            // Set data into modal
             modalImg.src = fullImgSrc;
             modalTitle.textContent = title;
             modalDesc.textContent = desc;
-
-            // Show modal
             modal.classList.remove('hidden');
-            setTimeout(() => {
-                modal.classList.add('visible');
-            }, 10);
-            
-            // Prevent background scrolling
+            setTimeout(() => { modal.classList.add('visible'); }, 10);
             document.body.style.overflow = 'hidden';
         }
 
@@ -784,17 +1057,91 @@
             modal.classList.remove('visible');
             setTimeout(() => {
                 modal.classList.add('hidden');
-                modalImg.src = ""; // Clear image
-            }, 300); // Matches CSS transition duration
-            
-            // Restore background scrolling
+                modalImg.src = "";
+            }, 300);
             document.body.style.overflow = 'auto';
         }
 
-        // Close modal on Escape key press
         document.addEventListener('keydown', function(event) {
-            if (event.key === "Escape" && !modal.classList.contains('hidden')) {
-                closeModal();
+            if (event.key === "Escape") {
+                if (!modal.classList.contains('hidden')) closeModal();
+                if (!emailModal.classList.contains('hidden')) closeEmailModal();
+            }
+        });
+
+        // ================================================================
+        // EMAIL POPUP MODAL
+        // ================================================================
+        const emailModal = document.getElementById('email-modal');
+
+        function openEmailModal() {
+            // Reset to form view
+            document.getElementById('email-modal-form-wrap').classList.remove('hidden');
+            document.getElementById('email-modal-success').classList.add('hidden');
+            emailModal.classList.remove('hidden');
+            setTimeout(() => { emailModal.classList.add('visible'); }, 10);
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeEmailModal() {
+            emailModal.classList.remove('visible');
+            setTimeout(() => { emailModal.classList.add('hidden'); }, 300);
+            document.body.style.overflow = 'auto';
+        }
+
+        // AJAX submission — Email Modal Form
+        document.getElementById('email-modal-form').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const submitBtn = document.getElementById('email-modal-submit-btn');
+            submitBtn.textContent = 'Sending…';
+            submitBtn.disabled = true;
+            try {
+                const response = await fetch('https://formspree.io/f/xwvjgrpw', {
+                    method: 'POST',
+                    body: new FormData(this),
+                    headers: { 'Accept': 'application/json' }
+                });
+                if (response.ok) {
+                    document.getElementById('email-modal-form-wrap').classList.add('hidden');
+                    document.getElementById('email-modal-success').classList.remove('hidden');
+                    this.reset();
+                } else {
+                    alert('Something went wrong. Please try again or email me directly.');
+                }
+            } catch (err) {
+                alert('Network error. Please check your connection and try again.');
+            } finally {
+                submitBtn.textContent = 'Send Message →';
+                submitBtn.disabled = false;
+            }
+        });
+
+        // AJAX submission — Project Brief Form
+        document.getElementById('brief-form').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const submitBtn = document.getElementById('brief-submit-btn');
+            submitBtn.textContent = 'Sending…';
+            submitBtn.disabled = true;
+            try {
+                const response = await fetch('https://formspree.io/f/xwvjgrpw', {
+                    method: 'POST',
+                    body: new FormData(this),
+                    headers: { 'Accept': 'application/json' }
+                });
+                if (response.ok) {
+                    this.classList.add('hidden');
+                    const successEl = document.getElementById('brief-success');
+                    successEl.classList.remove('hidden');
+                    successEl.classList.add('show');
+                    this.reset();
+                } else {
+                    alert('Something went wrong. Please try again.');
+                }
+            } catch (err) {
+                alert('Network error. Please check your connection and try again.');
+            } finally {
+                submitBtn.textContent = 'Send Request →';
+                submitBtn.disabled = false;
             }
         });
     </script>
